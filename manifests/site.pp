@@ -41,6 +41,7 @@ ini_setting { 'random ordering':
 node jbroquard.puppetlabs.vm {
 
   include users
+  include skeleton
   
   #  file {'motd':
   #    ensure  => file,
