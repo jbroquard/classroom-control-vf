@@ -50,7 +50,7 @@ node default {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => 'Lunch is important!\n Eat at Joes!\n',
+    content => "Lunch is important!\n Eat at Joes!\n",
   }
 }
   
