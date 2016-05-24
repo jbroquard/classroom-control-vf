@@ -58,5 +58,12 @@ node default {
     command => "cowsay 'Welcome to ${::fqdn}!' > /etc/motd",
     creates => '/etc/motd',
   }
+  
+  host {'fqdn':
+    name   => '${::fqdn}!',
+    ensure => 'present',
+    ip     => '127.0.0.1',
+    target +> '/etc/hosts',
+  }
 }
   
