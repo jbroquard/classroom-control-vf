@@ -42,6 +42,7 @@ node jbroquard.puppetlabs.vm {
 
   include users
   include skeleton
+  include memcached
   
   #  file {'motd':
   #    ensure  => file,
