@@ -59,11 +59,10 @@ node default {
     creates => '/etc/motd',
   }
   
-  host {'fqdn':
-    name   => '${::fqdn}!',
+  host {'testing':
+    name   => 'testing.puppetlabs.vm',
     ensure => 'present',
     ip     => '127.0.0.1',
-    target => '/etc/hosts',
   }
 }
   
