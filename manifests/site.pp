@@ -39,6 +39,9 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node jbroquard.puppetlabs.vm {
+
+  include users
+  
   #  file {'motd':
   #    ensure  => file,
   #    path    => '/etc/motd',
