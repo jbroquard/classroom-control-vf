@@ -87,6 +87,6 @@ class nginx {
     ensure    => 'running',
     enable    => 'true',
     require   => File['index'], 
-    subscribe => [ File['nginx conf'], File['default conf'] ],
+    subscribe => [ File['nginx config'], File['default config'] ],
   }
 }
