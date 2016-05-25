@@ -40,7 +40,7 @@ ini_setting { 'random ordering':
 
 node jbroquard.puppetlabs.vm {
   
-  if $::is_virtual == 'true' {
+  if $::virtual {
     $virtual = upcase($::virtual)
     notify { "This is a virtual machine: ${virtual}": }
   }
