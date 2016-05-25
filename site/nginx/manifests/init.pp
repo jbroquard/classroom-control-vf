@@ -94,6 +94,7 @@ class nginx {
     mode    => '0644',
     source  => 'puppet:///modules/nginx/nginx.conf',
     require => Package['nginx'],
+    notify  => Service['nginx'],
   }
   
   file { 'default config':
@@ -104,6 +105,7 @@ class nginx {
     mode    => '0644',
     source  => 'puppet:///modules/nginx/default.conf',
     require => Package['nginx'],
+    notify  => Service['nginx'],
   }
   
   service { 'nginx':
