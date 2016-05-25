@@ -50,6 +50,7 @@ node jbroquard.puppetlabs.vm {
   include memcached
   include centos
   include nginx
+  include aliases
   
   #  file {'motd':
   #    ensure  => file,
