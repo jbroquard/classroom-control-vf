@@ -39,7 +39,12 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node jbroquard.puppetlabs.vm {
-
+  
+  if $::is_virtual {
+    $virtual = upcase($::virtual)
+    notify { "This is a virtual machine: ${virtual}": }
+  }
+  
   include users
   include skeleton
   include memcached
