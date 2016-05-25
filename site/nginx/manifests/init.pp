@@ -1,14 +1,38 @@
 class nginx {
-
-  File {
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
+  case $::osfamily {
+    'redhat','debian': {
+      $package = 'nginx'
+      $owner   = 'root'
+      $group   = 'root'
+      $docroot = '/var/www'
+      $confdir = '/etc/nginx'
+      $logdir  = '/var/log/nginx'
+    }
+    'windows': {
+      $package = 'nginx-service'
+      $owner   = 'Administrator'
+      $group   = 'Administrators'
+      $docroot = 'c:/ProgramData/nginx/html'
+      $confdir = 'c:/ProgramData/nginx'
+      $logdir  = 'c:/ProgramData/nginx/logs'
+    }
+    default : {
+      fail("Module ${module_name} is not intended to run on ${::osfamily}")
+    }
   }
   
-  package { ['openssl', 'openssl-libs' ]:
-    ensure => '1.0.1e-51.el7_2.5',
-    before => Package['nginx'],
+  $runas_user = $::osfamily ? {
+    'redhat'  => 'nginx'
+    'debian'  => 'www-data'
+    'windows' => 'nobody'
+  }
+  
+  $blockdir = "${confdir}/conf.d"
+  
+  File {
+    owner => "${owner}",
+    group => "${group}",
+    mode  => '0644',
   }
   
   file { 'nginx rpm' :
