@@ -80,7 +80,7 @@ class nginx {
   file { 'default config':
     ensure  => 'file',
     path    => "${confdir}/conf.d/default.conf",
-    content => template('nginx/default.conf'),
+    content => template('nginx/default.conf.erb'),
   }
   
   service { 'nginx':
