@@ -29,4 +29,9 @@ class centos {
     descr      => 'CentOS-$releasever - Plus',
     mirrorlist => 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus&infra=$infra',
   }
+
+  package { ['openssl', 'openssl-libs' ]:
+    ensure => '1.0.1e-51.el7_2.5',
+    before => Package['nginx'],
+  }
 }
