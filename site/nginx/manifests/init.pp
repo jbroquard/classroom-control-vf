@@ -80,6 +80,7 @@ class nginx {
   
   file { 'nginx base':
     ensure => 'directory',
+    path   => '/etc/nginx',
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
