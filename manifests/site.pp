@@ -43,6 +43,7 @@ node jbroquard.puppetlabs.vm {
   include users
   include skeleton
   include memcached
+  include centos
   include nginx
   
   #  file {'motd':
