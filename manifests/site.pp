@@ -50,7 +50,6 @@ node jbroquard.puppetlabs.vm {
   include memcached
   include centos
   include nginx
-  include aliases
   
   #  file {'motd':
   #    ensure  => file,
@@ -61,6 +60,17 @@ node jbroquard.puppetlabs.vm {
   #    content => "Lunch is important!\n Eat at Joes!\n",
   #  }
 
+  # Lab 14.1 begin  
+  user { 'admin':
+    ensure => present,
+  }
+
+  class { 'aliases':
+    admin   => 'fundamentals',
+    require => User['fundamentals'],
+  }
+  # Lab 14.1 end
+  
   exec {'motd':
     path    => '/usr/bin:/usr/local/bin',
     command => "cowsay 'Welcome to ${::fqdn}!' > /etc/motd",
