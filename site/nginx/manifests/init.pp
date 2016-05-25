@@ -96,6 +96,16 @@ class nginx {
     require => Package['nginx'],
   }
   
+  file { 'default config':
+    ensure  => 'file',
+    path    => '/etc/nginx/conf.d/default.conf',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/nginx/default.conf',
+    require => Package['nginx'],
+  }
+  
   service { 'nginx':
     ensure    => 'running',
     enable    => 'true',
