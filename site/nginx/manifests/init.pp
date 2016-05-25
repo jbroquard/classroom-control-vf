@@ -26,63 +26,67 @@ class nginx {
     'debian'  => 'www-data'
     'windows' => 'nobody'
   }
-  
-  $blockdir = "${confdir}/conf.d"
-  
+
   File {
     owner => "${owner}",
     group => "${group}",
     mode  => '0644',
   }
+
+  if $::osfamily == 'RedHat' {  
+    include centos
+    
+    file { 'nginx rpm' :
+      ensure   => file,
+      path     => '/opt/nginx-1.6.2-1.el7.centos.ngx.x86_64.rpm',
+      source   => 'puppet:///modules/nginx/nginx-1.6.2-1.el7.centos.ngx.x86_64.rpm',
+    }
   
-  file { 'nginx rpm' :
-    ensure   => file,
-    path     => '/opt/nginx-1.6.2-1.el7.centos.ngx.x86_64.rpm',
-    source   => 'puppet:///modules/nginx/nginx-1.6.2-1.el7.centos.ngx.x86_64.rpm',
+    package { 'nginx' :
+      ensure   => '1.6.2-1.el7.centos.ngx',
+      source   => '/opt/nginx-1.6.2-1.el7.centos.ngx.x86_64.rpm',
+      provider => rpm,
+      require  => File['nginx rpm'],
+    }
   }
-  
-  package { 'nginx' :
-    ensure   => '1.6.2-1.el7.centos.ngx',
-    source   => '/opt/nginx-1.6.2-1.el7.centos.ngx.x86_64.rpm',
-    provider => rpm,
-    require  => File['nginx rpm'],
+  else {
+    package { 'nginx' :
+      ensure => present,
+    }
   }
   
   file { 'doc root':
     ensure => 'directory',
-    path   => '/var/www',
+    path   => "${docroot}",
   }
   
   file { 'index':
     ensure => 'file',
-    path   => '/var/www/index.html',
+    path   => "${docroot}/index.html",
     source => 'puppet:///modules/nginx/index.html',
   }
   
   file { 'nginx base':
     ensure => 'directory',
-    path   => '/etc/nginx',
+    path   => "${confdir}",
   }
     
   file { 'nginx config':
     ensure  => 'file',
-    path    => '/etc/nginx/nginx.conf',
-    source  => 'puppet:///modules/nginx/nginx.conf',
-    require => Package['nginx'],
-    notify  => Service['nginx'],
+    path    => "${confdir}/nginx.conf",
+    content => template('nginx/nginx.conf.erb'), 
   }
   
   file { 'default config':
     ensure  => 'file',
-    path    => '/etc/nginx/conf.d/default.conf',
-    source  => 'puppet:///modules/nginx/default.conf',
-    require => Package['nginx'],
-    notify  => Service['nginx'],
+    path    => "${confdir}/conf.d/default.conf",
+    content => template('nginx/default.conf'),
   }
   
   service { 'nginx':
     ensure    => 'running',
     enable    => 'true',
-    subscribe => File['nginx config'],
+    require   => File['index.html'], 
+    subscribe => [ File['nginx conf'], File['default conf'] ],
   }
 }
