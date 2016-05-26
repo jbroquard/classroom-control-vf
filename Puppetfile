@@ -7,3 +7,12 @@ mod 'vcsrepo',
   
 # Installs stahnma/epel v1.2.2
 mod 'stahnma/epel', '1.2.2'
+
+# Wordpress
+mod 'hunner/wordpress'
+
+# MySQL at least 5.6
+mod 'puppetlabs/mysql'
+
+# Apache prob 2.4
+mod 'puppetlabs/apache'
