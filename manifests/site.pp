@@ -48,7 +48,11 @@ node jbroquard.puppetlabs.vm {
   include users
   include skeleton
   include memcached
-  include nginx
+  
+  #include nginx
+  class { 'nginx':
+    root => '/var/www/html',
+  }
   
   #  file {'motd':
   #    ensure  => file,
