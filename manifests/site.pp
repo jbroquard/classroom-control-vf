@@ -51,6 +51,8 @@ node jbroquard.puppetlabs.vm {
   
   include nginx
 
+  include wrappers::epel
+  
   #  file {'motd':
   #    ensure  => file,
   #    path    => '/etc/motd',
