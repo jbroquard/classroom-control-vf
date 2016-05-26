@@ -36,6 +36,10 @@ class nginx (
     }
   }
   
+  file { '/var/www' :
+    ensure => directory,
+  }
+  
   file { 'doc root':
     ensure => 'directory',
     path   => "${docroot}",
