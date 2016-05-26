@@ -85,6 +85,11 @@ node jbroquard.puppetlabs.vm {
     ensure => 'present',
     ip     => '127.0.0.1',
   }
+  
+  # Lab 17.1 begin
+  $message = hiera('message')
+  notify { $message: }
+  #Lab 17.1 end
 }
 
 node default {
