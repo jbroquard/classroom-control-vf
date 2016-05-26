@@ -1,4 +1,4 @@
 class profiles::apache {
-  include apache
-  include php
+  include wrappers::apache
+  #include wrappers::php
 }
