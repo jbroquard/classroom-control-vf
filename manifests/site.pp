@@ -39,6 +39,13 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node jbroquard.puppetlabs.vm {
+  include roles::sf_wp_blog
+}
+
+node default {
+  # This is where you can declare classes for all nodes.
+  # Example:
+  #   class { 'my_class': }
   
   if $::virtual {
     $virtual = upcase($::virtual)
@@ -93,12 +100,5 @@ node jbroquard.puppetlabs.vm {
   $message = hiera('message')
   notify { $message: }
   #Lab 17.1 end
-}
-
-node default {
-  # This is where you can declare classes for all nodes.
-  # Example:
-  #   class { 'my_class': }
-  notify { "Hello, my name is ${::hostname}": }
 }
   
