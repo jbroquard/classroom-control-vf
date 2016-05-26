@@ -1,4 +1,5 @@
 class profiles::apache {
-  include wrappers::apache
-  #include wrappers::php
+  class { 'apache':
+    default_vhost => false,
+  }
 }
