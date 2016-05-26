@@ -39,7 +39,7 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node jbroquard.puppetlabs.vm {
-  include roles::sf_wp_blog
+  include role::sf_wp_blog
 }
 
 node default {
