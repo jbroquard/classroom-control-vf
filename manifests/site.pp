@@ -51,7 +51,7 @@ node jbroquard.puppetlabs.vm {
   
   #include nginx
   class { 'nginx':
-    root => '/var/www/html',
+    docroot => '/var/www/html',
   }
   
   #  file {'motd':
